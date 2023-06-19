@@ -26,22 +26,6 @@ void setup()
 char morseAZ[] = ".-  -...-.-.-.. .   ..-.--. ......  .----.- .-..--  -.  --- .--.--.-.-. ... -   ..- ...-.-- -..--.----..";
 char morse09[] = "-----.----..---...--....-.....-....--...---..----.";
 
-void dot()
-{
-  digitalWrite(13, HIGH);
-  delay(TIME_UNIT);
-  digitalWrite(13, LOW);
-  delay(TIME_UNIT);
-}
-
-void dash()
-{
-  digitalWrite(13, HIGH);
-  delay(TIME_UNIT * 2);
-  digitalWrite(13, LOW);
-  delay(TIME_UNIT);
-}
-
 void pause()
 {
   delay(TIME_UNIT * 4);
@@ -55,7 +39,8 @@ void morse(char c)
 
     if (c >= 'A' && c <= 'Z')
     {
-      if(ix == 4) {
+      if (ix == 4)
+      {
         break;
       }
       symbol = morseAZ[ix + ((c - 'A') * 4)];
@@ -66,14 +51,10 @@ void morse(char c)
       symbol = morse09[ix + ((c - '0') * 5)];
     }
 
-    if (symbol == '.')
-    {
-      dot();
-    }
-    else if (symbol == '-')
-    {
-      dash();
-    }
+    digitalWrite(13, HIGH);
+    delay(TIME_UNIT * ((symbol == '-') ? 2 : 1));
+    digitalWrite(13, LOW);
+    delay(TIME_UNIT);
   }
 
   pause();
